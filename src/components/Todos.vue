@@ -1,8 +1,17 @@
 <template>
   <div class="todo-list">
     <ul v-if="auth.isAuthenticated">
-      <li v-for="todo in todos" :key="todo.id">
+      <li
+        v-for="todo in todos"
+        :key="todo.id"
+        :class="todo.completed ? 'completed' : ''"
+      >
         {{ todo.title }}
+        <input
+          type="checkbox"
+          :checked="todo.completed"
+          @change="MARK_COMPLETE(todo.id)"
+        />
       </li>
     </ul>
     <p v-else style="text-align: center">Not authorised</p>
@@ -10,7 +19,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapMutations, mapState } from "vuex";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Todos",
@@ -28,6 +37,13 @@ export default {
   //     todos: (state) => state.todos,
   //     isAuthenticated: (state) => state.auth.isAuthenticated,
   //   }),
+
+  methods: mapMutations(["MARK_COMPLETE"]),
+  //   methods: {
+  //     markTodoCompleted(todoId) {
+  //         this.$store.commit("MARK_COMPLETE", todoId);
+  //     },
+  //   },
 };
 </script>
 

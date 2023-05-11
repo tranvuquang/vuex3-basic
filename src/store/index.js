@@ -14,13 +14,13 @@ const storeData = {
         completed: true,
       },
       {
-        id: 2,
+        id: 3,
         title: "Viec 3",
         completed: false,
       },
     ],
     auth: {
-      isAuthenticated: false,
+      isAuthenticated: true,
     },
   },
   getters: {
@@ -31,6 +31,19 @@ const storeData = {
       const doneTodos = getters.doneTodos;
       //   const doneTodos = state.todos.filter((todo) => todo.completed);
       return Math.round((doneTodos.length / state.todos.length) * 100);
+    },
+  },
+  mutations: {
+    TOGGLE_AUTH(state) {
+      state.auth.isAuthenticated = !state.auth.isAuthenticated;
+    },
+    MARK_COMPLETE(state, todoId) {
+      state.todos.map((todo) => {
+        if (todo.id === todoId) {
+          todo.completed = !todo.completed;
+        }
+        return todo;
+      });
     },
   },
 };
