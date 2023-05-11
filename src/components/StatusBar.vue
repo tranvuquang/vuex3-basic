@@ -1,5 +1,5 @@
 <template>
-  <div class="status-bar" >
+  <div class="status-bar">
     <p>Done</p>
     <ul>
       <li v-for="todo in doneTodos" :key="todo.id">
@@ -10,14 +10,15 @@
 </template>
 
 <script>
-// import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "StatusBar",
-  computed: {
-    doneTodos() {
-      return this.$store.state.todos.filter((todo) => todo.completed);
-    },
-  },
+  computed: mapGetters(["doneTodos"]),
+  //   computed: {
+  //     doneTodos() {
+  //       return this.$store.getters.doneTodos;
+  //     },
+  //   },
 };
 </script>
 
