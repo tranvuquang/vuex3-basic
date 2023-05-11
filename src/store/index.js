@@ -23,6 +23,16 @@ const storeData = {
       isAuthenticated: false,
     },
   },
+  getters: {
+    doneTodos: (state) => {
+      return state.todos.filter((todo) => todo.completed);
+    },
+    progress: (state, getters) => {
+      const doneTodos = getters.doneTodos;
+      //   const doneTodos = state.todos.filter((todo) => todo.completed);
+      return Math.round((doneTodos.length / state.todos.length) * 100);
+    },
+  },
 };
 
 const store = createStore(storeData);
