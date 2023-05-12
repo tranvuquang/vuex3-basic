@@ -1,7 +1,7 @@
 <template>
   <div class="todo-list">
     <TodoForm />
-    <ul v-if="auth.isAuthenticated">
+    <ul v-if="isAuthenticated">
       <li
         v-for="todo in todos"
         :key="todo.id"
@@ -21,43 +21,20 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from "vuex";
+import { mapActions, mapMutations, mapGetters } from "vuex";
 import TodoForm from "./TodoForm.vue";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Todos",
   components: { TodoForm },
-  computed: mapState(["todos", "auth"]),
-  //   computed: {
-  //     todos() {
-  //       return this.$store.state.todos;
-  //     },
-  //     isAuthenticated() {
-  //       return this.$store.state.auth.isAuthenticated;
-  //     },
-  //   },
-
-  //   computed: mapState({
-  //     todos: (state) => state.todos,
-  //     isAuthenticated: (state) => state.auth.isAuthenticated,
-  //   }),
-
-  created() {
-    this.getTodos();
-  },
-
-  methods: {
-    ...mapMutations(["MARK_COMPLETE"]),
-    // deleteTodo(todoId) {
-    //   this.$store.dispatch("deleteTodo", todoId);
-    // },
-    ...mapActions(["deleteTodo", "getTodos"]),
-  },
-  //   methods: {
-  //     markTodoCompleted(todoId) {
-  //         this.$store.commit("MARK_COMPLETE", todoId);
-  //     },
-  //   },
+  computed: mapGetters(['todos', 'isAuthenticated']),
+	created() {
+		this.getTodos()
+	},
+	methods: {
+		...mapMutations(['MARK_COMPLETE']),
+		...mapActions(['deleteTodo', 'getTodos'])
+	}
 };
 </script>
 

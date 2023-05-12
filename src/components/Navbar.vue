@@ -4,7 +4,7 @@
     <ul>
       <li>Home</li>
       <li>About</li>
-      <li v-if="auth.isAuthenticated">
+      <li v-if="isAuthenticated">
         Total todos: {{ todos.length }}
         <button @click="TOGGLE_AUTH">Logout</button>
       </li>
@@ -14,17 +14,12 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Navbar",
-  computed: mapState(["todos", "auth"]),
+  computed: mapGetters(["todos", "isAuthenticated"]),
   methods: mapMutations(["TOGGLE_AUTH"]),
-  //   methods: {
-  //     loginOrLogout() {
-  //       this.$store.commit("TOGGLE_AUTH");
-  //     },
-  //   },
 };
 </script>
 
